@@ -14,17 +14,13 @@ const RoutePage = (props) => {
     if (isAdmin) {
       return (
         <div>
-          <DashboarAdmin />
+          <DashboarAdmin {...props} />
         </div>
       );
     } else {
-      return (
-        <div>
-          <h1>Hola route Otro</h1>
-        </div>
-      );
+      return <div> </div>;
     }
-    return <div></div>;
+    //return <div></div>;
   } else {
     return <div></div>;
   }

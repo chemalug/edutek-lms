@@ -28,7 +28,7 @@ const Sidebar = (props) => {
   // creates the links that appear in the left menu / Sidebar
   const createLinks = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
+      if (prop.layout === "/dashboard" && prop.show === "true") {
         return (
           <NavItem key={key}>
             <NavLink
@@ -36,6 +36,7 @@ const Sidebar = (props) => {
               tag={NavLinkRRD}
               activeClassName="active"
               onClick={closeCollapse}
+              className="text-white"
             >
               <i className={prop.icon} />
               {prop.name}
@@ -63,18 +64,18 @@ const Sidebar = (props) => {
 
   return (
     <Navbar
-      className="navbar-vertical fixed-left navbar-dark "
+      className="navbar-vertical fixed-left bg-gradient-danger"
       expand="md"
       id="sidenav-main"
     >
       <Container fluid>
         {/* Toggler */}
         <button
-          className="navbar-toggler"
+          className="navbar-toggler text-white"
           type="button"
           onClick={toggleCollapse}
         >
-          <span className="navbar-toggler-icon" />
+          <span className="fas fa-bars" />
         </button>
         {/* Brand */}
         {logo ? (
@@ -91,13 +92,14 @@ const Sidebar = (props) => {
 
         {/* Collapse */}
         <Collapse navbar isOpen={collapseOpen}>
-          <Nav navbar></Nav>
+          <hr className="my-3" />
+          <h6 className="navbar-heading text-light">Administración</h6>
           {/* Navigation */}
           <Nav navbar>{createLinks(routes)}</Nav>
           {/* Divider */}
           <hr className="my-3" />
           {/* Heading */}
-          <h6 className="navbar-heading text-muted">Documentation</h6>
+
           {/* Navigation */}
         </Collapse>
       </Container>

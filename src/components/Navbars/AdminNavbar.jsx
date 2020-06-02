@@ -31,7 +31,7 @@ const AdminNavbar = (props) => {
   return (
     <>
       <Navbar
-        className="navbar-top navbar-dark bg-gradient-info "
+        className="navbar-top bg-gradient-dark "
         expand="md"
         id="navbar-main"
       >

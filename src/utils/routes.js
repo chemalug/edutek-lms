@@ -18,16 +18,17 @@
 
 //import Register from "components/auth/Register";
 //import Login from "components/Auth/Login";
-//import Schools from "views/admin/schools/index.school";
+import Schools from "views/dashboard/admin/schools/index.school";
 
 var routes = [
   {
-    path: "/Schools",
+    path: "/schools",
     name: "Colegios",
-    icon: "fas fa-school text-success",
-    //component: Schools,
-    layout: "/admin",
+    icon: "fas fa-school text-white",
+    component: Schools,
+    layout: "/dashboard",
     rol: "admin",
+    show: "true",
   },
   {
     path: "/login",
