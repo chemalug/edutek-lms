@@ -17,15 +17,15 @@
 */
 
 //import Register from "components/auth/Register";
-import Login from "components/Auth/Login";
-import Schools from "views/admin/schools/index.school";
+//import Login from "components/Auth/Login";
+//import Schools from "views/admin/schools/index.school";
 
 var routes = [
   {
     path: "/Schools",
     name: "Colegios",
     icon: "fas fa-school text-success",
-    component: Schools,
+    //component: Schools,
     layout: "/admin",
     rol: "admin",
   },
@@ -33,7 +33,7 @@ var routes = [
     path: "/login",
     name: "Login",
     icon: "ni ni-key-25 text-info",
-    component: Login,
+    //component: Login,
     layout: "/auth",
     rol: "public",
   },
