@@ -30,9 +30,6 @@ const DashboarAdmin = (props) => {
 
   const getBrandText = (path) => {
     for (let i = 0; i < routes.length; i++) {
-      console.log(path.indexOf(routes[i].layout + routes[i].path));
-      console.log(routes[i].layout + routes[i].path);
-
       if (path.indexOf(routes[i].layout + routes[i].path) !== -1) {
         return routes[i].name;
       }

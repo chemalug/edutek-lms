@@ -9,8 +9,22 @@ import {
   CardHeader,
   CardBody,
 } from "reactstrap";
+import FormSchool from "./form.school";
 
 class SchoolPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: false,
+      isEdit: false,
+    };
+  }
+
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal,
+    });
+  };
   render() {
     return (
       <div>
@@ -18,12 +32,14 @@ class SchoolPage extends React.Component {
           <Container>
             <Row>
               <Col lg="6" xl="3">
-                <Button
-                  color="success"
-                  onClick={() => {
-                    //ModalForm("Hola mindo", "true");
-                  }}
-                >
+                <Button color="success" onClick={this.toggle}>
+                  {!this.state.modal ? null : (
+                    <FormSchool
+                      modal={this.state.modal}
+                      toggle={this.toggle}
+                      isEdit={this.state.isEdit}
+                    />
+                  )}
                   <i className="fas fa-school"> </i> Agregar Colegio
                 </Button>
               </Col>
