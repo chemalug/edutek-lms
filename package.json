@@ -5,9 +5,12 @@
   "homepage": "./",
   "dependencies": {
     "@coreui/coreui": "^3.2.0",
+    "@material-ui/core": "^4.10.1",
     "bootstrap": "^4.5.0",
     "firebase": "^7.14.6",
+    "history": "^4.10.1",
     "jquery": "^3.5.1",
+    "material-table": "^1.59.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",

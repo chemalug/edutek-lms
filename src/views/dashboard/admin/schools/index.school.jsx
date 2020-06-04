@@ -9,7 +9,10 @@ import {
   CardHeader,
   CardBody,
 } from "reactstrap";
+import MaterialTable from "material-table";
+
 import FormSchool from "./form.school";
+import { db } from "functions/firebase";
 
 class SchoolPage extends React.Component {
   constructor(props) {
@@ -17,7 +20,47 @@ class SchoolPage extends React.Component {
     this.state = {
       modal: false,
       isEdit: false,
+      columns: [
+        { title: "Nombre", field: "nombre" },
+        { title: "Email", field: "email" },
+        { title: "Teléfono", field: "telefono", type: "numeric" },
+        { title: "Dirección", field: "direccion" },
+        { title: "Status", field: "status" },
+        { title: "uid", field: "uid", hidden: true },
+      ],
+      rows: [],
+      estado: [],
     };
+  }
+
+  componentDidMount() {
+    /*this.setState({
+      rows: 
+    })*/
+    let data = [];
+    db.ref("/schools").on("value", (snapShot) => {
+      this.setState((prevState) => {
+        return { rows: [] };
+      });
+      data = [];
+      if (snapShot.exists()) {
+        snapShot.forEach((child) => {
+          let a = child.val();
+          let aux = {
+            nombre: a.nombre,
+            email: a.email,
+            telefono: a.telefono,
+            direccion: a.direccion,
+            status: a.status,
+            uid: child.key,
+          };
+          data.push(aux);
+        });
+        this.setState((prevState) => {
+          return { rows: [...prevState.rows, ...data] };
+        });
+      }
+    });
   }
 
   toggle = () => {
@@ -56,7 +99,50 @@ class SchoolPage extends React.Component {
                   <h3> Listado de Colegios</h3>
                 </CardHeader>
                 <CardBody className="border-1">
-                  {/*props.getSchools.map((s) => console.log(s))*/}
+                  <MaterialTable
+                    title="Tabla de nuevo"
+                    columns={this.state.columns}
+                    data={this.state.rows}
+                    editable={{
+                      onRowAdd: (newData) =>
+                        new Promise((resolve) => {
+                          setTimeout(() => {
+                            resolve();
+                            this.setState.estado((prevState) => {
+                              const data = [...prevState.data];
+                              data.push(newData);
+                              return { ...prevState, data };
+                            });
+                          }, 600);
+                        }),
+                      onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve) => {
+                          setTimeout(() => {
+                            resolve();
+                            if (oldData) {
+                              db.ref(`/schools/${oldData.uid}`).set(newData);
+                              /*this.setState((prevState) => {
+                                const data = [...prevState.rows];
+                                data[data.indexOf(oldData)] = newData;
+                                
+                                return { ...prevState.rows, ...data };
+                              });*/
+                            }
+                          }, 600);
+                        }),
+                      onRowDelete: (oldData) =>
+                        new Promise((resolve) => {
+                          setTimeout(() => {
+                            resolve();
+                            this.setState.estado((prevState) => {
+                              const data = [...prevState.data];
+                              data.splice(data.indexOf(oldData), 1);
+                              return { ...prevState, data };
+                            });
+                          }, 600);
+                        }),
+                    }}
+                  />
                 </CardBody>
               </Card>
             </div>
