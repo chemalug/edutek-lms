@@ -22,7 +22,7 @@ class SchoolPage extends React.Component {
       isEdit: false,
       columns: [
         { title: "Nombre", field: "nombre" },
-        { title: "Email", field: "email" },
+        { title: "Email", field: "email", type: "email" },
         { title: "Teléfono", field: "telefono", type: "numeric" },
         { title: "Dirección", field: "direccion" },
         { title: "Status", field: "status" },
@@ -104,29 +104,12 @@ class SchoolPage extends React.Component {
                     columns={this.state.columns}
                     data={this.state.rows}
                     editable={{
-                      onRowAdd: (newData) =>
-                        new Promise((resolve) => {
-                          setTimeout(() => {
-                            resolve();
-                            this.setState.estado((prevState) => {
-                              const data = [...prevState.data];
-                              data.push(newData);
-                              return { ...prevState, data };
-                            });
-                          }, 600);
-                        }),
                       onRowUpdate: (newData, oldData) =>
                         new Promise((resolve) => {
                           setTimeout(() => {
                             resolve();
                             if (oldData) {
                               db.ref(`/schools/${oldData.uid}`).set(newData);
-                              /*this.setState((prevState) => {
-                                const data = [...prevState.rows];
-                                data[data.indexOf(oldData)] = newData;
-                                
-                                return { ...prevState.rows, ...data };
-                              });*/
                             }
                           }, 600);
                         }),
@@ -134,13 +117,12 @@ class SchoolPage extends React.Component {
                         new Promise((resolve) => {
                           setTimeout(() => {
                             resolve();
-                            this.setState.estado((prevState) => {
-                              const data = [...prevState.data];
-                              data.splice(data.indexOf(oldData), 1);
-                              return { ...prevState, data };
-                            });
+                            db.ref(`/schools/${oldData.uid}`).remove();
                           }, 600);
                         }),
+                    }}
+                    options={{
+                      actionsColumnIndex: -1,
                     }}
                   />
                 </CardBody>

@@ -13,7 +13,7 @@ export const loginFirebase = (email, password) => (dispatch) => {
           },
         });
       } else {*/
-
+      //localStorage.setItem("user", JSON.stringify(user.user));
       dispatch(setCurrentUser(user.user));
       /*}*/
     })
